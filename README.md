@@ -6,7 +6,11 @@ A minimal macOS menu bar app that prevents your Mac from sleeping.
 
 [Releases](https://github.com/kataring/regain/releases) から最新の DMG をダウンロードできます。
 
-> 未署名アプリのため、初回起動時は右クリック → **開く** → **開く** でGatekeeperをバイパスしてください。
+> 未署名アプリのため、初回起動時にGatekeeperにブロックされます。以下のコマンドで quarantine 属性を除去してから起動してください。
+>
+> ```
+> xattr -cr /Applications/Regain.app
+> ```
 
 ## Features
 

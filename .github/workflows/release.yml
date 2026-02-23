@@ -26,9 +26,12 @@ jobs:
             -configuration Release \
             -derivedDataPath build \
             CODE_SIGN_IDENTITY="-" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGNING_ALLOWED=YES \
             build
+
+      - name: Ad-hoc sign
+        run: codesign --force --deep --sign - "build/Build/Products/Release/Regain.app"
 
       - name: Create DMG
         run: |
@@ -51,5 +54,5 @@ jobs:
 
             1. Download `Regain.dmg`
             2. Open the DMG and drag `Regain.app` to Applications
-            3. On first launch: right-click → **Open** → **Open** (unsigned app)
+            3. On first launch, run: `xattr -cr /Applications/Regain.app`
           files: Regain.dmg
