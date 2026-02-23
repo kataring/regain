@@ -37,15 +37,6 @@ struct MenuBarView: View {
             }
         }
 
-        Button {
-            sleepManager.toggleAggressiveMode()
-        } label: {
-            Label(
-                "Aggressive Mode",
-                systemImage: sleepManager.aggressiveModeEnabled ? "checkmark" : ""
-            )
-        }
-
         Divider()
 
         Button("Quit Regain") {
