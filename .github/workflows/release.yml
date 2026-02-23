@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install xcodegen create-dmg
+
+      - name: Build
+        run: |
+          xcodegen generate
+          xcodebuild \
+            -project Regain.xcodeproj \
+            -scheme Regain \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Create DMG
+        run: |
+          create-dmg \
+            --volname "Regain" \
+            --window-pos 200 120 \
+            --window-size 600 400 \
+            --icon-size 100 \
+            --icon "Regain.app" 150 190 \
+            --app-drop-link 450 190 \
+            "Regain.dmg" \
+            "build/Build/Products/Release/Regain.app"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Regain ${{ github.ref_name }}
+          body: |
+            ## Download
+
+            1. Download `Regain.dmg`
+            2. Open the DMG and drag `Regain.app` to Applications
+            3. On first launch: right-click → **Open** → **Open** (unsigned app)
+          files: Regain.dmg

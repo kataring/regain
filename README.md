@@ -2,6 +2,12 @@
 
 A minimal macOS menu bar app that prevents your Mac from sleeping.
 
+## Download
+
+[Releases](https://github.com/kataring/regain/releases) から最新の DMG をダウンロードできます。
+
+> 未署名アプリのため、初回起動時は右クリック → **開く** → **開く** でGatekeeperをバイパスしてください。
+
 ## Features
 
 - **Sleep Prevention** — IOPMAssertion-based system & display sleep prevention (auto-enabled on launch)
